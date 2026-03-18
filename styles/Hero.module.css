@@ -1,0 +1,77 @@
+.hero { position:relative; height:100vh; min-height:640px; overflow:hidden; display:flex; align-items:center; }
+.canvas { position:absolute; inset:0; z-index:1; pointer-events:none; }
+.bg { position:absolute; inset:0; opacity:0; transition:opacity 1.6s ease; z-index:0; }
+.bgActive { opacity:1; }
+.bgPrev { opacity:0; transition:opacity 0.8s ease; }
+.ov1 { position:absolute;inset:0;background:linear-gradient(110deg,rgba(7,7,9,0.96) 0%,rgba(7,7,9,0.80) 40%,rgba(7,7,9,0.45) 100%);z-index:2; }
+.ov2 { position:absolute;inset:0;background:linear-gradient(to right,transparent 40%,rgba(192,57,43,0.15) 100%);z-index:2; }
+.ov3 { position:absolute;inset:0;background:linear-gradient(to top,rgba(7,7,9,0.85) 0%,transparent 45%);z-index:2; }
+
+.contentWrap { position:relative;z-index:3;padding:0 8%;width:100%;max-width:780px; }
+
+.glassCard {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: var(--r-xl);
+  padding: 48px 52px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+  animation: scaleIn 0.8s ease both;
+}
+
+.tag { display:inline-flex;align-items:center;gap:10px;color:var(--red2);font-size:11px;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;margin-bottom:22px; }
+.tag::before { content:'';display:block;width:36px;height:1.5px;background:var(--red2);border-radius:var(--r-full); }
+
+.title { font-family:var(--serif);font-size:clamp(38px,5.5vw,72px);font-weight:900;line-height:1.06;color:#fff;margin-bottom:20px; }
+.em { background:linear-gradient(90deg,var(--red2),var(--red4));background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-style:normal;display:block; }
+
+.desc { color:rgba(242,235,233,0.72);font-size:16px;line-height:1.8;max-width:520px;margin-bottom:36px;font-weight:300; }
+
+.actions { display:flex;gap:14px;flex-wrap:wrap; }
+.btnP {
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--grad);color:#fff;padding:13px 30px;
+  font-size:13px;font-weight:600;text-decoration:none;border-radius:var(--r-full);
+  transition:all 0.25s;box-shadow:0 6px 24px var(--red-glow2);
+}
+.btnP:hover { transform:translateY(-2px);box-shadow:0 12px 36px var(--red-glow); }
+.btnO {
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,0.08);color:var(--text);padding:13px 30px;
+  font-size:13px;font-weight:500;text-decoration:none;border-radius:var(--r-full);
+  border:1px solid rgba(255,255,255,0.15);transition:all 0.25s;
+  backdrop-filter:blur(12px);
+}
+.btnO:hover { border-color:var(--red-border);color:var(--red2);background:var(--glass-red); }
+
+/* Slide indicators */
+.indicators { position:absolute;bottom:40px;left:8%;z-index:3;display:flex;gap:16px; }
+.ind { display:flex;flex-direction:column;gap:6px;background:transparent;border:none;cursor:pointer;padding:0;opacity:0.45;transition:opacity 0.3s; }
+.indActive { opacity:1; }
+.indNum { font-size:11px;color:var(--text);font-weight:600;letter-spacing:1px; }
+.indBar { width:48px;height:2px;background:rgba(255,255,255,0.2);border-radius:var(--r-full);overflow:hidden; }
+.indFill { height:100%;width:100%;background:var(--red2);border-radius:var(--r-full);animation:progressFill 7s linear forwards; }
+@keyframes progressFill { from{transform:scaleX(0);transform-origin:left} to{transform:scaleX(1);transform-origin:left} }
+
+/* Arrows */
+.arrows { position:absolute;right:5%;bottom:40px;z-index:3;display:flex;gap:8px; }
+.arr {
+  width:44px;height:44px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.12);
+  color:var(--text);font-size:22px;font-weight:300;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;border-radius:var(--r-full);
+  backdrop-filter:blur(16px);transition:all 0.2s;
+}
+.arr:hover { background:var(--grad);border-color:var(--red);color:#fff;box-shadow:0 4px 20px var(--red-glow2); }
+
+/* Scroll cue */
+.scrollCue { position:absolute;bottom:42px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:9px;letter-spacing:2.5px;text-transform:uppercase; }
+.scrollMouse { width:20px;height:32px;border:1.5px solid rgba(255,255,255,0.2);border-radius:10px;display:flex;justify-content:center;padding-top:5px; }
+.scrollWheel { width:3px;height:6px;background:var(--red2);border-radius:var(--r-full);animation:scrollW 2s ease-in-out infinite; }
+@keyframes scrollW { 0%,100%{transform:translateY(0);opacity:1} 60%{transform:translateY(8px);opacity:0.2} }
+
+@keyframes scaleIn { from{opacity:0;transform:scale(0.95)} to{opacity:1;transform:scale(1)} }
+@media(max-width:768px){ .arrows{display:none} .scrollCue{display:none} .indicators{left:5%} .glassCard{padding:32px 28px} .contentWrap{padding:0 5%} }

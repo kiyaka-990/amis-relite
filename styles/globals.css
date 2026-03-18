@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* BRAND */
+  --red:           #C0392B;
+  --red2:          #E74C3C;
+  --red3:          #96281B;
+  --red4:          #FF6B6B;
+  --red-glow:      rgba(192, 57, 43, 0.45);
+  --red-glow2:     rgba(231, 76, 60, 0.20);
+  --red-border:    rgba(192, 57, 43, 0.35);
+  --red-border2:   rgba(231, 76, 60, 0.20);
+
+  /* DARK */
+  --bg:            #070709;
+  --bg2:           #0d0d10;
+  --bg3:           #111115;
+  --bg4:           #17171c;
+
+  /* GLASS */
+  --glass:         rgba(255, 255, 255, 0.04);
+  --glass2:        rgba(255, 255, 255, 0.07);
+  --glass3:        rgba(255, 255, 255, 0.10);
+  --glass-red:     rgba(192, 57, 43, 0.08);
+  --glass-red2:    rgba(192, 57, 43, 0.14);
+
+  /* TEXT */
+  --text:          #F2EBE9;
+  --text2:         #C8BEBC;
+  --muted:         #7A706E;
+  --muted2:        #5A5250;
+
+  /* GRADIENTS */
+  --grad:          linear-gradient(135deg, #C0392B 0%, #7B241C 55%, #1a0805 100%);
+  --grad2:         linear-gradient(135deg, #E74C3C 0%, #C0392B 100%);
+  --grad-dark:     linear-gradient(135deg, #1a0805 0%, #0d0d10 60%, rgba(192,57,43,0.15) 100%);
+
+  /* RADIUS */
+  --r-sm:   10px;
+  --r-md:   16px;
+  --r-lg:   24px;
+  --r-xl:   32px;
+  --r-full: 9999px;
+
+  /* FONTS */
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  'Outfit', sans-serif;
+
+  --trans: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--red-border); border-radius: var(--r-full); }
+::selection { background: var(--red); color: #fff; }
+
+/* === SECTION HELPERS === */
+.section     { padding: 110px 8%; }
+.section-alt { background: var(--bg2); }
+.section-alt2{ background: var(--bg3); }
+
+/* === SHARED LABELS === */
+.section-tag {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--red2); font-size: 11px; letter-spacing: 3.5px;
+  text-transform: uppercase; font-weight: 600; margin-bottom: 18px;
+}
+.section-tag::before {
+  content: ''; display: block;
+  width: 28px; height: 1.5px; background: var(--red2);
+  border-radius: var(--r-full);
+}
+
+.section-title {
+  font-family: var(--serif); font-size: clamp(32px, 4.5vw, 60px);
+  font-weight: 900; line-height: 1.08; margin-bottom: 20px;
+}
+.section-title em { color: var(--red2); font-style: normal; }
+.section-desc { color: var(--muted); font-size: 16px; line-height: 1.85; font-weight: 300; max-width: 560px; }
+
+/* === GLASS CARD === */
+.g-card {
+  background: var(--glass);
+  border: 1px solid var(--glass3);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-radius: var(--r-lg);
+  transition: var(--trans);
+}
+.g-card:hover {
+  background: var(--glass2);
+  border-color: var(--red-border2);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px var(--red-border2);
+  transform: translateY(-4px);
+}
+
+/* === BUTTONS === */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 32px; font-size: 13px; font-weight: 600;
+  letter-spacing: 0.5px; text-decoration: none;
+  border: none; cursor: pointer; transition: var(--trans);
+  font-family: var(--sans); border-radius: var(--r-full);
+  white-space: nowrap; position: relative; overflow: hidden;
+}
+.btn::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,0.12); opacity: 0;
+  transition: opacity 0.2s;
+}
+.btn:hover::before { opacity: 1; }
+
+.btn-primary {
+  background: var(--grad);
+  color: #fff;
+  box-shadow: 0 6px 24px var(--red-glow2);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px var(--red-glow);
+}
+
+.btn-outline {
+  background: var(--glass2);
+  color: var(--text);
+  border: 1px solid var(--glass3);
+  backdrop-filter: blur(12px);
+}
+.btn-outline:hover {
+  border-color: var(--red-border);
+  color: var(--red2);
+  background: var(--glass-red);
+}
+
+/* === MESH BACKGROUND === */
+.mesh-bg {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(192,57,43,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(150,40,27,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 60% at 60% 40%, rgba(231,76,60,0.04) 0%, transparent 50%),
+    var(--bg);
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeUp   { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+@keyframes scaleIn  { from{opacity:0;transform:scale(0.92)} to{opacity:1;transform:scale(1)} }
+@keyframes float    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+@keyframes glow     { 0%,100%{box-shadow:0 0 20px var(--red-glow2)} 50%{box-shadow:0 0 40px var(--red-glow)} }
+@keyframes spin     { to{transform:rotate(360deg)} }
+@keyframes shimmer  { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+
+/* === RESPONSIVE === */
+@media (max-width:1024px) { .section{padding:80px 6%} }
+@media (max-width:768px)  { .section{padding:64px 5%} .section-title{font-size:32px} }
+@media (max-width:480px)  { .section{padding:52px 4%} }
