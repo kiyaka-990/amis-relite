@@ -4,9 +4,10 @@ import styles from '../styles/Chatbot.module.css';
 
 interface Msg { role: 'bot' | 'user'; text: string; followups?: string[]; ts: Date; }
 
-const WELCOME_TEXT = `👋 Hello! I'm **ARIA** — the Amis Relite Intelligent Assistant.\n\nI'm trained on everything about our construction services, projects, team, pricing, and more. Ask me anything! 😊`;
-const WELCOME_FOLLOWUPS = ['What services do you offer?', 'Show me your projects', 'How do I get a quote?', 'Tell me about the team'];
+// The WELCOME banner IS the greeting — no duplicate bot message on open.
+// A bot reply only enters msgs[] after the user sends their first message.
 const QUICK_TOPICS = ['Services', 'Quote', 'Projects', 'Team', 'Safety'];
+const WELCOME_CHIPS = ['What services do you offer?', 'Show me your projects', 'How do I get a quote?', 'Tell me about the team'];
 
 function getBotResponse(msg: string): BotMsg {
   const m = msg.trim();
@@ -60,19 +61,18 @@ function MsgBubble({ m, isLast, onChip }: { m: Msg; isLast: boolean; onChip: (t:
 }
 
 export default function Chatbot() {
-  const [open,   setOpen]   = useState(false);
-  const [msgs,   setMsgs]   = useState<Msg[]>([]); // empty on SSR — filled on mount
-  const [input,  setInput]  = useState('');
-  const [typing, setTyping] = useState(false);
-  const [unread, setUnread] = useState(0);
-  const [shake,  setShake]  = useState(false);
+  const [open,      setOpen]      = useState(false);
+  // Start empty — banner handles the welcome; msgs fills as conversation progresses
+  const [msgs,      setMsgs]      = useState<Msg[]>([]);
+  const [input,     setInput]     = useState('');
+  const [typing,    setTyping]    = useState(false);
+  const [unread,    setUnread]    = useState(0);
+  const [shake,     setShake]     = useState(false);
+  // Track whether user has ever sent a message (to hide/show banner correctly)
+  const [hasStarted, setHasStarted] = useState(false);
+
   const endRef   = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  // Only set welcome message on client — prevents new Date() SSR mismatch
-  useEffect(() => {
-    setMsgs([{ role: 'bot', ts: new Date(), text: WELCOME_TEXT, followups: WELCOME_FOLLOWUPS }]);
-  }, []);
 
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [msgs, typing]);
   useEffect(() => {
@@ -86,6 +86,7 @@ export default function Chatbot() {
   const send = (text: string) => {
     const t = text.trim(); if (!t || typing) return;
     setInput('');
+    setHasStarted(true); // hide the welcome banner once conversation starts
     setMsgs(p => [...p, { role: 'user', text: t, ts: new Date() }]);
     setTyping(true);
     const resp = getBotResponse(t);
@@ -101,8 +102,10 @@ export default function Chatbot() {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input); }
   };
 
+  // Clear resets to the clean welcome state (no messages, banner visible)
   const clear = () => {
-    setMsgs([{ role: 'bot', ts: new Date(), text: WELCOME_TEXT, followups: WELCOME_FOLLOWUPS }]);
+    setMsgs([]);
+    setHasStarted(false);
     setInput('');
   };
 
@@ -142,43 +145,56 @@ export default function Chatbot() {
           </div>
         </div>
 
-        {/* Welcome banner — shown only when no user messages yet */}
-        {msgs.length <= 1 && (
-          <div className={styles.welcomeBanner}>
-            <span className={styles.wIcon}>👋</span>
-            <div className={styles.wText}>
-              <div className={styles.wGreeting}>Hi there! How can I help?</div>
-              <div className={styles.wSub}>Ask me anything about our construction services, projects, pricing, or team — I&apos;ll answer instantly.</div>
+        {/* ── Welcome screen — shown ONLY before user sends first message ── */}
+        {!hasStarted && (
+          <div className={styles.welcomeScreen}>
+            <div className={styles.waveEmoji}>👋</div>
+            <h3 className={styles.wGreeting}>Hi there! How can I help?</h3>
+            <p className={styles.wSub}>
+              Ask me anything about Amis Relite&apos;s construction services,
+              projects, pricing, or team — I&apos;ll answer instantly.
+            </p>
+            {/* Chip shortcuts on the welcome screen */}
+            <div className={styles.welcomeChips}>
+              {WELCOME_CHIPS.map((c, i) => (
+                <button key={i} className={styles.welcomeChip} onClick={() => send(c)}>
+                  {c}
+                </button>
+              ))}
             </div>
           </div>
         )}
 
-        {/* Messages — flex:1, min-height:0 so it scrolls correctly */}
-        <div className={styles.msgs}>
-          <div className={styles.dateDivider}>Today</div>
-          {msgs.map((m, i) => (
-            <MsgBubble key={i} m={m} isLast={i === msgs.length - 1} onChip={send} />
-          ))}
-          {typing && (
-            <div className={styles.msgRow}>
-              <div className={styles.botAv}><span>AR</span></div>
-              <div className={`${styles.bubble} ${styles.bubbleBot} ${styles.typingBubble}`}>
-                <span className={styles.td1} /><span className={styles.td2} /><span className={styles.td3} />
+        {/* ── Messages — only rendered after conversation starts ── */}
+        {hasStarted && (
+          <div className={styles.msgs}>
+            <div className={styles.dateDivider}>Today</div>
+            {msgs.map((m, i) => (
+              <MsgBubble key={i} m={m} isLast={i === msgs.length - 1} onChip={send} />
+            ))}
+            {typing && (
+              <div className={styles.msgRow}>
+                <div className={styles.botAv}><span>AR</span></div>
+                <div className={`${styles.bubble} ${styles.bubbleBot} ${styles.typingBubble}`}>
+                  <span className={styles.td1} /><span className={styles.td2} /><span className={styles.td3} />
+                </div>
               </div>
-            </div>
-          )}
-          <div ref={endRef} />
-        </div>
+            )}
+            <div ref={endRef} />
+          </div>
+        )}
 
-        {/* Quick topics — horizontal scroll, no wrap */}
-        <div className={styles.quickBar}>
-          <span className={styles.quickLabel}>Quick:</span>
-          {QUICK_TOPICS.map(t => (
-            <button key={t} className={styles.quick} onClick={() => send(t)}>{t}</button>
-          ))}
-        </div>
+        {/* Quick topics — only shown during active conversation */}
+        {hasStarted && (
+          <div className={styles.quickBar}>
+            <span className={styles.quickLabel}>Quick:</span>
+            {QUICK_TOPICS.map(t => (
+              <button key={t} className={styles.quick} onClick={() => send(t)}>{t}</button>
+            ))}
+          </div>
+        )}
 
-        {/* Input area */}
+        {/* Input area — always visible */}
         <div className={styles.inputArea}>
           <div className={styles.inputWrap}>
             <input
@@ -186,7 +202,7 @@ export default function Chatbot() {
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={onKey}
-              placeholder="Ask me anything about Amis Relite…"
+              placeholder={hasStarted ? 'Ask a follow-up…' : 'Ask me anything about Amis Relite…'}
               className={styles.input}
               disabled={typing}
               autoComplete="off"
