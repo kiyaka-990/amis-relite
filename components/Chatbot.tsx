@@ -4,10 +4,13 @@ import styles from '../styles/Chatbot.module.css';
 
 interface Msg { role: 'bot' | 'user'; text: string; followups?: string[]; ts: Date; }
 
-// The WELCOME banner IS the greeting — no duplicate bot message on open.
-// A bot reply only enters msgs[] after the user sends their first message.
 const QUICK_TOPICS = ['Services', 'Quote', 'Projects', 'Team', 'Safety'];
-const WELCOME_CHIPS = ['What services do you offer?', 'Show me your projects', 'How do I get a quote?', 'Tell me about the team'];
+const WELCOME_CHIPS = [
+  { icon: '🏢', label: 'What services do you offer?' },
+  { icon: '📁', label: 'Show me your projects' },
+  { icon: '💰', label: 'How do I get a quote?' },
+  { icon: '👥', label: 'Tell me about the team' },
+];
 
 function getBotResponse(msg: string): BotMsg {
   const m = msg.trim();
@@ -20,7 +23,6 @@ function getBotResponse(msg: string): BotMsg {
   return res;
 }
 
-// Client-only timestamp — avoids SSR/hydration mismatch
 function MsgTime({ ts }: { ts: Date }) {
   const [label, setLabel] = useState('');
   useEffect(() => {
@@ -31,18 +33,17 @@ function MsgTime({ ts }: { ts: Date }) {
 
 function MsgBubble({ m, isLast, onChip }: { m: Msg; isLast: boolean; onChip: (t: string) => void }) {
   const isBot = m.role === 'bot';
-  const parts = m.text.split('\n');
   return (
-    <div className={`${styles.msgRow} ${isBot ? styles.msgRowBot : styles.msgRowUser}`}>
-      {isBot && <div className={styles.botAv}><span>AR</span></div>}
-      <div className={`${styles.bubble} ${isBot ? styles.bubbleBot : styles.bubbleUser}`}>
+    <div className={isBot ? styles.rowBot : styles.rowUser}>
+      {isBot && <div className={styles.botAv}>AR</div>}
+      <div className={isBot ? styles.bubbleBot : styles.bubbleUser}>
         <div className={styles.bubbleText}>
-          {parts.map((line, i) => {
+          {m.text.split('\n').map((line, i, arr) => {
             const segs = line.split(/\*\*(.*?)\*\*/g);
             return (
               <span key={i}>
                 {segs.map((s, j) => j % 2 === 1 ? <strong key={j}>{s}</strong> : s)}
-                {i < parts.length - 1 && <br />}
+                {i < arr.length - 1 && <br />}
               </span>
             );
           })}
@@ -61,36 +62,27 @@ function MsgBubble({ m, isLast, onChip }: { m: Msg; isLast: boolean; onChip: (t:
 }
 
 export default function Chatbot() {
-  const [open,      setOpen]      = useState(false);
-  // Start empty — banner handles the welcome; msgs fills as conversation progresses
-  const [msgs,      setMsgs]      = useState<Msg[]>([]);
-  const [input,     setInput]     = useState('');
-  const [typing,    setTyping]    = useState(false);
-  const [unread,    setUnread]    = useState(0);
-  const [shake,     setShake]     = useState(false);
-  // Track whether user has ever sent a message (to hide/show banner correctly)
+  const [open,       setOpen]       = useState(false);
+  const [msgs,       setMsgs]       = useState<Msg[]>([]);
+  const [input,      setInput]      = useState('');
+  const [typing,     setTyping]     = useState(false);
+  const [unread,     setUnread]     = useState(0);
+  const [shake,      setShake]      = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
-
   const endRef   = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [msgs, typing]);
-  useEffect(() => {
-    if (open) { setUnread(0); setTimeout(() => inputRef.current?.focus(), 320); }
-  }, [open]);
-  useEffect(() => {
-    const t = setTimeout(() => setShake(true), 5000);
-    return () => clearTimeout(t);
-  }, []);
+  useEffect(() => { if (open) { setUnread(0); setTimeout(() => inputRef.current?.focus(), 300); } }, [open]);
+  useEffect(() => { const t = setTimeout(() => setShake(true), 5000); return () => clearTimeout(t); }, []);
 
   const send = (text: string) => {
     const t = text.trim(); if (!t || typing) return;
-    setInput('');
-    setHasStarted(true); // hide the welcome banner once conversation starts
+    setInput(''); setHasStarted(true);
     setMsgs(p => [...p, { role: 'user', text: t, ts: new Date() }]);
     setTyping(true);
     const resp = getBotResponse(t);
-    const delay = Math.min(2200, Math.max(700, t.length * 12 + resp.text.length * 7));
+    const delay = Math.min(2000, Math.max(700, t.length * 10 + resp.text.length * 6));
     setTimeout(() => {
       setTyping(false);
       setMsgs(p => [...p, { role: 'bot', text: resp.text, followups: resp.followups, ts: new Date() }]);
@@ -102,70 +94,68 @@ export default function Chatbot() {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input); }
   };
 
-  // Clear resets to the clean welcome state (no messages, banner visible)
-  const clear = () => {
-    setMsgs([]);
-    setHasStarted(false);
-    setInput('');
-  };
+  const clear = () => { setMsgs([]); setHasStarted(false); setInput(''); };
 
   return (
     <>
-      {/* ── Floating Action Button ── */}
+      {/* FAB */}
       <button
-        className={`${styles.fab} ${shake ? styles.fabShake : ''} ${open ? styles.fabOpen : ''}`}
-        onClick={() => { setOpen(!open); setShake(false); }}
+        className={[styles.fab, shake && styles.fabShake, open && styles.fabOpen].filter(Boolean).join(' ')}
+        onClick={() => { setOpen(o => !o); setShake(false); }}
         aria-label="Chat with ARIA"
       >
-        <span className={styles.fabEmoji}>{open ? '✕' : '💬'}</span>
+        <span className={styles.fabIcon}>{open ? '✕' : '💬'}</span>
         {!open && <span className={styles.fabRing} />}
         {unread > 0 && !open && <span className={styles.badge}>{unread}</span>}
       </button>
 
-      {/* ── Chat Window ── */}
-      <div className={`${styles.win} ${open ? styles.winOpen : ''}`}>
+      {/* Window */}
+      <div className={[styles.win, open && styles.winOpen].filter(Boolean).join(' ')}>
 
         {/* Header */}
         <div className={styles.header}>
           <div className={styles.hLeft}>
             <div className={styles.hAv}>
-              <span>🤖</span>
+              🤖
               <span className={styles.onlineDot} />
             </div>
             <div>
-              <div className={styles.hTitle}>ARIA <span className={styles.hBadge}>AI</span></div>
+              <div className={styles.hTitle}>
+                ARIA&nbsp;<span className={styles.hBadge}>AI</span>
+              </div>
               <div className={styles.hSub}>
-                <span className={styles.onlineText}>● Online</span> · Amis Relite Assistant
+                <span className={styles.online}>● Online</span>&nbsp;· Amis Relite
               </div>
             </div>
           </div>
-          <div className={styles.hActions}>
+          <div className={styles.hBtns}>
             <button className={styles.hBtn} onClick={clear} title="New chat">🗑</button>
             <button className={styles.hBtn} onClick={() => setOpen(false)} title="Close">✕</button>
           </div>
         </div>
 
-        {/* ── Welcome screen — shown ONLY before user sends first message ── */}
+        {/* WELCOME STATE */}
         {!hasStarted && (
-          <div className={styles.welcomeScreen}>
-            <div className={styles.waveEmoji}>👋</div>
-            <h3 className={styles.wGreeting}>Hi there! How can I help?</h3>
-            <p className={styles.wSub}>
-              Ask me anything about Amis Relite&apos;s construction services,
-              projects, pricing, or team — I&apos;ll answer instantly.
+          <div className={styles.welcome}>
+            <span className={styles.wEmoji}>👋</span>
+            <h3 className={styles.wTitle}>Hi! How can I help?</h3>
+            <p className={styles.wDesc}>
+              Ask me anything about Amis Relite — services, projects, pricing, or team.
             </p>
-            {/* Chip shortcuts on the welcome screen */}
-            <div className={styles.welcomeChips}>
+            <div className={styles.wDivider} />
+            <div className={styles.wChips}>
               {WELCOME_CHIPS.map((c, i) => (
-                <button key={i} className={styles.welcomeChip} onClick={() => send(c)}>
-                  {c}
+                <button key={i} className={styles.wChip} onClick={() => send(c.label)}>
+                  <span className={styles.wChipIcon}>{c.icon}</span>
+                  <span className={styles.wChipLabel}>{c.label}</span>
+                  <span className={styles.wChipArrow}>›</span>
                 </button>
               ))}
             </div>
           </div>
         )}
 
-        {/* ── Messages — only rendered after conversation starts ── */}
+        {/* CHAT STATE */}
         {hasStarted && (
           <div className={styles.msgs}>
             <div className={styles.dateDivider}>Today</div>
@@ -173,10 +163,10 @@ export default function Chatbot() {
               <MsgBubble key={i} m={m} isLast={i === msgs.length - 1} onChip={send} />
             ))}
             {typing && (
-              <div className={styles.msgRow}>
-                <div className={styles.botAv}><span>AR</span></div>
-                <div className={`${styles.bubble} ${styles.bubbleBot} ${styles.typingBubble}`}>
-                  <span className={styles.td1} /><span className={styles.td2} /><span className={styles.td3} />
+              <div className={styles.rowBot}>
+                <div className={styles.botAv}>AR</div>
+                <div className={styles.bubbleBot}>
+                  <span className={styles.dot} /><span className={styles.dot2} /><span className={styles.dot3} />
                 </div>
               </div>
             )}
@@ -184,25 +174,25 @@ export default function Chatbot() {
           </div>
         )}
 
-        {/* Quick topics — only shown during active conversation */}
+        {/* Quick bar — only during chat */}
         {hasStarted && (
           <div className={styles.quickBar}>
-            <span className={styles.quickLabel}>Quick:</span>
+            <span className={styles.quickLbl}>Quick:</span>
             {QUICK_TOPICS.map(t => (
               <button key={t} className={styles.quick} onClick={() => send(t)}>{t}</button>
             ))}
           </div>
         )}
 
-        {/* Input area — always visible */}
+        {/* Input */}
         <div className={styles.inputArea}>
-          <div className={styles.inputWrap}>
+          <div className={styles.inputRow}>
             <input
               ref={inputRef}
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={onKey}
-              placeholder={hasStarted ? 'Ask a follow-up…' : 'Ask me anything about Amis Relite…'}
+              placeholder={hasStarted ? 'Ask a follow-up…' : 'Type your question…'}
               className={styles.input}
               disabled={typing}
               autoComplete="off"
@@ -212,11 +202,9 @@ export default function Chatbot() {
               onClick={() => send(input)}
               disabled={!input.trim() || typing}
               aria-label="Send"
-            >
-              <span>➤</span>
-            </button>
+            >➤</button>
           </div>
-          <div className={styles.inputFooter}>Powered by Amis Relite AI · No external API</div>
+          <p className={styles.inputNote}>Amis Relite AI · No external API</p>
         </div>
 
       </div>
