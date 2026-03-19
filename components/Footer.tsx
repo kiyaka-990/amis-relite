@@ -32,7 +32,7 @@ export default function Footer() {
       <div className={styles.bottom}>
         <span>© {new Date().getFullYear()} Amis Relite Limited. All rights reserved.</span>
         <span className={styles.sep}>·</span>
-        <span>Quality Construction · Built to Last · Nairobi, Kenya</span>
+        <span>Developed by Asterleigh Systems</span>
       </div>
     </footer>
   );
