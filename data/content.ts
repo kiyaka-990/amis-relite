@@ -25,12 +25,12 @@ export const STATS = [
 ];
 
 export const SERVICES = [
-  { num:'01', icon:'🏢', title:'Commercial Construction', desc:'Innovative commercial buildings tailored for your business — offices, retail centres, and industrial facilities of any scale.', img:'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700&q=80&auto=format&fit=crop' },
-  { num:'02', icon:'🏡', title:'Residential Projects',    desc:'From bespoke homes to multi-unit developments — beautiful, functional living spaces built to reflect your lifestyle.', img:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=80&auto=format&fit=crop' },
-  { num:'03', icon:'✏️', title:'Design Build Services',   desc:'Integrated architecture and construction under one roof — seamless delivery from concept to keys.', img:'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=700&q=80&auto=format&fit=crop' },
-  { num:'04', icon:'📋', title:'Project Consulting',      desc:'Expert guidance through every phase — strategic planning, risk analysis, and professional oversight.', img:'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=700&q=80&auto=format&fit=crop' },
-  { num:'05', icon:'🔨', title:'Renovation & Remodelling',desc:'Transform your existing space — kitchen remodels, structural overhauls, and everything in between.', img:'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=700&q=80&auto=format&fit=crop' },
-  { num:'06', icon:'🏗️', title:'Site Development',       desc:'Complete site preparation — excavation, grading, drainage systems, and utility installation.', img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&q=80&auto=format&fit=crop' },
+  { num:'01', icon:'🏢', title:'Commercial Construction', desc:'Innovative commercial buildings tailored for your business — offices, retail centres, and industrial facilities of any scale.', img:'/images/clock-tower.jpeg' },
+  { num:'02', icon:'🏡', title:'Residential Projects',    desc:'From bespoke homes to multi-unit developments — beautiful, functional living spaces built to reflect your lifestyle.', img:'/images/atlantis.jpeg' },
+  { num:'03', icon:'✏️', title:'Design Build Services',   desc:'Integrated architecture and construction under one roof — seamless delivery from concept to keys.', img:'/images/belgravia-5.jpeg' },
+  { num:'04', icon:'📋', title:'Project Consulting',      desc:'Expert guidance through every phase — strategic planning, risk analysis, and professional oversight.', img:'/images/project-5.jpeg' },
+  { num:'05', icon:'🔨', title:'Renovation & Remodelling',desc:'Transform your existing space — kitchen remodels, structural overhauls, and everything in between.', img:'/images/project1.jpeg' },
+  { num:'06', icon:'🏗️', title:'Site Development',       desc:'Complete site preparation — excavation, grading, drainage systems, and utility installation.', img:'/images/about-1.jpg' },
 ];
 
 export const PROJECTS = [
