@@ -55,12 +55,12 @@ export const TESTIMONIALS = [
 ];
 
 export const TEAM = [
-  { name:'Ambrose Chege', role:'Managing Director',  img:'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&q=80&auto=format&fit=crop',  bio:'Visionary leader with 10+ years steering Amis Relite to become a leading construction firm in Kenya.' },
-  { name:'Antony Njiru',  role:'Quantity Surveyor',  img:'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&q=80&auto=format&fit=crop',  bio:'Certified QS ensuring accurate cost planning and financial control on every project from day one.' },
-  { name:'Daniel Lomole', role:'Projects Architect', img:'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=500&q=80&auto=format&fit=crop',  bio:'Creative architect blending aesthetics with function to deliver spaces that inspire and endure.' },
-  { name:'Jude Kimolo',   role:'Site Agent',         img:'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&q=80&auto=format&fit=crop',  bio:'Experienced site coordinator keeping schedules on track and teams performing at their best.' },
-  { name:'Joseph Waguchu',role:'Site Engineer',      img:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500&q=80&auto=format&fit=crop',  bio:'Structural engineer with expertise in foundation systems, load analysis, and quality assurance.' },
-  { name:'Cyrus Wambui',  role:'Site Surveyor',      img:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=80&auto=format&fit=crop',  bio:'Precision surveyor ensuring accurate measurements, site boundaries, and setting-out on all projects.' },
+  { name:'Ambrose Chege', role:'Managing Director',  img:'/images/team-1.jpeg',  bio:'Visionary leader with 10+ years steering Amis Relite to become a leading construction firm in Kenya.' },
+  { name:'Antony Njiru',  role:'Quantity Surveyor',  img:'/images/team-2.jpeg',  bio:'Certified QS ensuring accurate cost planning and financial control on every project from day one.' },
+  { name:'Daniel Lomole', role:'Projects Architect', img:'/images/team-3.jpeg',  bio:'Creative architect blending aesthetics with function to deliver spaces that inspire and endure.' },
+  { name:'Jude Kimolo',   role:'Site Agent',         img:'/images/team-4.jpeg',  bio:'Experienced site coordinator keeping schedules on track and teams performing at their best.' },
+  { name:'Joseph Waguchu',role:'Site Engineer',      img:'/images/team-5.jpeg',  bio:'Structural engineer with expertise in foundation systems, load analysis, and quality assurance.' },
+  { name:'Cyrus Wambui',  role:'Site Surveyor',      img:'/images/team-6.jpeg',  bio:'Precision surveyor ensuring accurate measurements, site boundaries, and setting-out on all projects.' },
 ];
 
 export const FAQS = [
