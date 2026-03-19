@@ -23,7 +23,7 @@ export default function About() {
         <div className={styles.imgCol}>
           <div className={styles.imgFrame}>
             <Image
-              src="https://images.unsplash.com/photo-1590856029826-c7a73142bbf1?w=900&q=85&auto=format&fit=crop"
+              src="/images/about-1.jpg"
               alt="Amis Relite construction" fill style={{objectFit:'cover'}} sizes="(max-width:768px) 100vw, 50vw"
             />
             <div className={styles.imgOverlay}/>
