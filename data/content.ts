@@ -47,8 +47,8 @@ export const PROJECTS = [
 
 export const TESTIMONIALS = [
   { text:'Amis Relite transformed our commercial project with exceptional professionalism. Every stage was delivered with precision and the quality speaks for itself.', name:'Jane Kyalo',    role:'Strategy Director',       img:'/images/jane.jpg', stars:5 },
-  { text:'Exceptional service and innovative solutions transformed our development. The quality of workmanship and professionalism is simply unmatched in Nairobi.',   name:'George Kangethe', role:'Chief Innovation Officer', img:'/images/chee.png', stars:5 },
-  { text:'Strategic partnership with Amis Relite enabled seamless execution and excellence. Delivered on time and within budget — I would not go anywhere else.',       name:'Lenny Makokha', role:'Senior Lead Developer',    img:'/images/lenny.png', stars:5 },
+  { text:'Exceptional service and innovative solutions transformed our development. The quality of workmanship and professionalism is simply unmatched in Nairobi.',   name:'George Kangethe', role:'Chief Innovation Officer', img:'/images/testimonial-4.jpg', stars:5 },
+  { text:'Strategic partnership with Amis Relite enabled seamless execution and excellence. Delivered on time and within budget — I would not go anywhere else.',       name:'Lenny Makokha', role:'Senior Lead Developer',    img:'/images/testimonial-5.jpg', stars:5 },
   { text:'The Amani Village project exceeded every expectation. Beautiful craftsmanship, transparent communication, and a team that genuinely cares.',                  name:'Wanjiku Njoroge',role:'Property Investor',       img:'/images/testimonial-2.jpg', stars:5 },
   { text:'I engaged Amis Relite for a full residential renovation — the results were outstanding. Their design-build team is talented, punctual, and passionate.',      name:'David Ochieng', role:'Homeowner',               img:'/images/testimonial-1.jpg', stars:5 },
   { text:'Outstanding civil engineering on our road project. Certified engineers handled every technical challenge brilliantly and on schedule.',                        name:'Grace Muthoni', role:'County Engineer',          img:'/images/testimonial-3.jpg', stars:5 },
