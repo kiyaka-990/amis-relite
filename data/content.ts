@@ -46,12 +46,12 @@ export const PROJECTS = [
 ];
 
 export const TESTIMONIALS = [
-  { text:'Amis Relite transformed our commercial project with exceptional professionalism. Every stage was delivered with precision and the quality speaks for itself.', name:'Jane Kyalo',    role:'Strategy Director',       img:'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&q=80&auto=format&fit=crop&facepad=3', stars:5 },
-  { text:'Exceptional service and innovative solutions transformed our development. The quality of workmanship and professionalism is simply unmatched in Nairobi.',   name:'Benard Marcus', role:'Chief Innovation Officer', img:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80&auto=format&fit=crop&facepad=3', stars:5 },
-  { text:'Strategic partnership with Amis Relite enabled seamless execution and excellence. Delivered on time and within budget — I would not go anywhere else.',       name:'Lenny Makokha', role:'Senior Lead Developer',    img:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80&auto=format&fit=crop&facepad=3', stars:5 },
-  { text:'The Amani Village project exceeded every expectation. Beautiful craftsmanship, transparent communication, and a team that genuinely cares.',                  name:'Wanjiku Njoroge',role:'Property Investor',       img:'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&q=80&auto=format&fit=crop&facepad=3', stars:5 },
-  { text:'I engaged Amis Relite for a full residential renovation — the results were outstanding. Their design-build team is talented, punctual, and passionate.',      name:'David Ochieng', role:'Homeowner',               img:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80&auto=format&fit=crop&facepad=3', stars:5 },
-  { text:'Outstanding civil engineering on our road project. Certified engineers handled every technical challenge brilliantly and on schedule.',                        name:'Grace Muthoni', role:'County Engineer',          img:'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80&auto=format&fit=crop&facepad=3', stars:5 },
+  { text:'Amis Relite transformed our commercial project with exceptional professionalism. Every stage was delivered with precision and the quality speaks for itself.', name:'Jane Kyalo',    role:'Strategy Director',       img:'/images/jane.jpg', stars:5 },
+  { text:'Exceptional service and innovative solutions transformed our development. The quality of workmanship and professionalism is simply unmatched in Nairobi.',   name:'George Kangethe', role:'Chief Innovation Officer', img:'/images/chee.png', stars:5 },
+  { text:'Strategic partnership with Amis Relite enabled seamless execution and excellence. Delivered on time and within budget — I would not go anywhere else.',       name:'Lenny Makokha', role:'Senior Lead Developer',    img:'/images/lenny.png', stars:5 },
+  { text:'The Amani Village project exceeded every expectation. Beautiful craftsmanship, transparent communication, and a team that genuinely cares.',                  name:'Wanjiku Njoroge',role:'Property Investor',       img:'/images/testimonial-2.jpg', stars:5 },
+  { text:'I engaged Amis Relite for a full residential renovation — the results were outstanding. Their design-build team is talented, punctual, and passionate.',      name:'David Ochieng', role:'Homeowner',               img:'/images/testimonial-1.jpg', stars:5 },
+  { text:'Outstanding civil engineering on our road project. Certified engineers handled every technical challenge brilliantly and on schedule.',                        name:'Grace Muthoni', role:'County Engineer',          img:'/images/testimonial-3.jpg', stars:5 },
 ];
 
 export const TEAM = [
