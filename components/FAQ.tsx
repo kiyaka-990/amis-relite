@@ -19,7 +19,7 @@ export default function FAQ() {
           {/* Decorative card */}
           <div className={styles.sideCard}>
             <div className={styles.sideImg}>
-              <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80&auto=format&fit=crop" alt="construction site"/>
+              <img src="/images/belgravia-8.jpeg" alt="construction site"/>
             </div>
             <div className={styles.sideBody}>
               <strong>Free Consultation</strong>
