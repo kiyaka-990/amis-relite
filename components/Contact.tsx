@@ -41,7 +41,7 @@ export default function Contact() {
           ))}
           {/* Map image */}
           <div className={styles.mapCard}>
-            <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=700&q=80&auto=format&fit=crop" alt="Nairobi" className={styles.mapImg}/>
+            <img src="/images/runda.jpeg" alt="Nairobi" className={styles.mapImg}/>
             <div className={styles.mapOv}>
               <div className={styles.mapPin}>📍 Nairobi, Kenya</div>
             </div>
