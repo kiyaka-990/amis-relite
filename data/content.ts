@@ -1,4 +1,6 @@
-export const SITE = {
+import type { SiteContent, SiteSettings } from './types';
+
+export const SITE: SiteSettings = {
   name:   'Amis Relite Limited',
   tag:    'Quality Construction, Built to Last.',
   phone1: '+254 725 590275',
@@ -7,13 +9,18 @@ export const SITE = {
   email2: 'amisrelitelimited@gmail.com',
   addr:   'Nairobi, Kenya',
   hours:  'Mon – Fri: 8:00 AM – 5:00 PM',
+  whatsapp: '254725590275',
+  whatsappMsg: 'Hello Amis Relite, I would like to request a quote.',
+  facebook:  'https://facebook.com',
+  instagram: 'https://instagram.com',
+  linkedin:  'https://linkedin.com',
 };
 
 export const HERO_SLIDES = [
-  { tag:'Quality Construction Since 2017', title:'Building the Future,', em:'Restoring the Past', desc:"Nairobi's premier construction firm delivering excellence in commercial, residential, and civil engineering projects across Kenya.", cta1:{l:'Request a Quote',h:'#contact'}, cta2:{l:'View Projects',h:'#projects'}, img:'/images/atlantis.jpeg' },
-  { tag:'Expert Craftsmanship', title:'Your Vision,', em:'Our Blueprint', desc:'From concept to completion — transforming ideas into functional, beautiful, and lasting structures on time and within budget.', cta1:{l:'Our Services',h:'#services'}, cta2:{l:'About Us',h:'#about'}, img:'/images/belgravia-8.jpeg' },
-  { tag:'7+ Years of Excellence', title:'Expertise in', em:'Every Foundation', desc:'With a proven track record across Kenya, our certified engineers and architects handle complex projects with precision and care.', cta1:{l:'Our Portfolio',h:'#projects'}, cta2:{l:'Meet the Team',h:'#team'}, img:'/images/belgravia-1.jpeg' },
-  { tag:'100% Safety Record', title:'Safety First,', em:'Quality Always', desc:'We adhere to the highest safety standards on every site — building responsibly for our clients and the communities of Kenya.', cta1:{l:'Get a Free Quote',h:'#contact'}, cta2:{l:'Our Services',h:'#services'}, img:'/images/runda.jpeg' },
+  { tag:'Quality Construction Since 2017', title:'Building the Future,', em:'Restoring the Past', desc:"Nairobi's premier construction firm delivering excellence in commercial, residential, and civil engineering projects across Kenya.", cta1:{l:'Request a Quote',h:'/contact'}, cta2:{l:'View Projects',h:'/projects'}, img:'/images/atlantis.jpeg' },
+  { tag:'Expert Craftsmanship', title:'Your Vision,', em:'Our Blueprint', desc:'From concept to completion — transforming ideas into functional, beautiful, and lasting structures on time and within budget.', cta1:{l:'Our Services',h:'/services'}, cta2:{l:'About Us',h:'/about'}, img:'/images/belgravia-8.jpeg' },
+  { tag:'7+ Years of Excellence', title:'Expertise in', em:'Every Foundation', desc:'With a proven track record across Kenya, our certified engineers and architects handle complex projects with precision and care.', cta1:{l:'Our Portfolio',h:'/projects'}, cta2:{l:'Meet the Team',h:'/about'}, img:'/images/belgravia-1.jpeg' },
+  { tag:'100% Safety Record', title:'Safety First,', em:'Quality Always', desc:'We adhere to the highest safety standards on every site — building responsibly for our clients and the communities of Kenya.', cta1:{l:'Get a Free Quote',h:'/contact'}, cta2:{l:'Our Services',h:'/services'}, img:'/images/runda.jpeg' },
 ];
 
 export const STATS = [
@@ -117,7 +124,7 @@ export const INTENTS: Array<{ patterns: RegExp[]; response: BotMsg }> = [
   },
   {
     patterns:[/\b(quote|estimate|cost|price|how much|budget|fee|charge|afford|rate|pricing)\b/i],
-    response:{ text:`Getting a **FREE quote** is simple:\n\n1️⃣ Contact us (phone, email, or form below)\n2️⃣ Free consultation — we discuss your vision\n3️⃣ Free site visit — we assess your location\n4️⃣ Detailed quote within **24 hours**\n\n📞 **+254 725 590275**\n✉️ **info@amisrelite.co.ke**\n\n⚡ **Zero hidden costs · Zero obligations**\n\nScroll to the Contact section to send us a message now!`, followups:['What is included in a quote?','What is your process?','Contact details'] }
+    response:{ text:`Getting a **FREE quote** is simple:\n\n1️⃣ Contact us (phone, email, or form below)\n2️⃣ Free consultation — we discuss your vision\n3️⃣ Free site visit — we assess your location\n4️⃣ Detailed quote within **24 hours**\n\n📞 **+254 725 590275**\n✉️ **info@amisrelite.co.ke**\n\n⚡ **Zero hidden costs · Zero obligations**\n\nOpen the **Contact page** to send us a message now — or tap the green WhatsApp button!`, followups:['What is included in a quote?','What is your process?','Contact details'] }
   },
   {
     patterns:[/\b(process|step|stage|how.*work|procedure|method|timeline|phase|approach)\b/i],
@@ -141,7 +148,7 @@ export const INTENTS: Array<{ patterns: RegExp[]; response: BotMsg }> = [
   },
   {
     patterns:[/\b(contact|phone|call|email|reach|address|office|location|hours|where|find)\b/i],
-    response:{ text:`**Contact Amis Relite** 📞\n\n📱 **Phone:** +254 725 590275\n📱 **Alt:** +254 725 817475\n✉️ **Email:** info@amisrelite.co.ke\n📧 **Alt:** amisrelitelimited@gmail.com\n📍 **Location:** Nairobi, Kenya\n🕐 **Hours:** Mon–Fri, 8:00 AM – 5:00 PM\n\nUse the **Contact Form** on this page and we'll respond within **24 hours**! 🚀`, followups:['Get a free quote','What services do you offer?','What is your process?'] }
+    response:{ text:`{{CONTACT}}`, followups:['Get a free quote','What services do you offer?','What is your process?'] }
   },
   {
     patterns:[/\b(thank|thanks|great|awesome|perfect|wonderful|excellent|helpful|love it)\b/i],
@@ -149,6 +156,46 @@ export const INTENTS: Array<{ patterns: RegExp[]; response: BotMsg }> = [
   },
   {
     patterns:[/.*/],
-    response:{ text:`Thanks for your message! I'd recommend:\n\n📞 **Call:** +254 725 590275\n✉️ **Email:** info@amisrelite.co.ke\n📝 **Contact form** on this page\n\nOur team responds within **24 hours** Mon–Fri.\n\nOr I can help with one of these:`, followups:['What services do you offer?','View our projects','How do I get a quote?','Tell me about your team'] }
+    response:{ text:`Thanks for your message! I'd recommend:\n\n📞 **Call:** {{PHONE1}}\n✉️ **Email:** {{EMAIL1}}\n💬 **WhatsApp:** tap the green button, bottom right\n📝 **Contact page** with the enquiry form\n\nOur team responds within **24 hours** Mon–Fri.\n\nOr I can help with one of these:`, followups:['What services do you offer?','View our projects','How do I get a quote?','Tell me about your team'] }
   },
 ];
+
+/** Contact block rendered from live site settings so the bot never shows stale details. */
+export function contactBlock(site: SiteSettings): string {
+  return [
+    `**Contact ${site.name}** 📞`,
+    '',
+    `📱 **Phone:** ${site.phone1}`,
+    `📱 **Alt:** ${site.phone2}`,
+    `✉️ **Email:** ${site.email1}`,
+    `📧 **Alt:** ${site.email2}`,
+    `📍 **Location:** ${site.addr}`,
+    `🕐 **Hours:** ${site.hours}`,
+    `💬 **WhatsApp:** ${site.whatsapp}`,
+    '',
+    `Use the **Contact Form** — or message us on WhatsApp — and we'll respond within **24 hours**! 🚀`,
+  ].join('\n');
+}
+
+/** Intents with {{TOKENS}} resolved against the current site settings. */
+export function getIntents(site: SiteSettings) {
+  return INTENTS.map(intent => {
+    let text = intent.response.text
+      .replace('{{CONTACT}}', contactBlock(site))
+      .replace('{{PHONE1}}', site.phone1)
+      .replace('{{EMAIL1}}', site.email1);
+    return { ...intent, response: { ...intent.response, text } };
+  });
+}
+
+/** Everything below is the shipped default content — the admin portal overrides it at runtime. */
+export const DEFAULT_CONTENT: SiteContent = {
+  site: SITE,
+  hero: HERO_SLIDES,
+  stats: STATS,
+  services: SERVICES,
+  projects: PROJECTS,
+  testimonials: TESTIMONIALS,
+  team: TEAM,
+  faqs: FAQS,
+};

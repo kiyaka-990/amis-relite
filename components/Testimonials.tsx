@@ -1,24 +1,27 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { TESTIMONIALS } from '../data/content';
+import { useContent } from './ContentProvider';
 import styles from '../styles/Testimonials.module.css';
 
 export default function Testimonials() {
+  const { content } = useContent();
+  const TESTIMONIALS = content.testimonials;
   const [cur, setCur] = useState(0);
   const [paused, setPaused] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
 
+  const count = Math.max(1, TESTIMONIALS.length);
   useEffect(() => {
-    if (paused) return;
-    const t = setInterval(() => setCur(c => (c + 1) % TESTIMONIALS.length), 4500);
+    if (paused || count < 2) return;
+    const t = setInterval(() => setCur(c => (c + 1) % count), 4500);
     return () => clearInterval(t);
-  }, [paused]);
+  }, [paused, count]);
 
   const visible = [
-    TESTIMONIALS[cur % TESTIMONIALS.length],
-    TESTIMONIALS[(cur + 1) % TESTIMONIALS.length],
-    TESTIMONIALS[(cur + 2) % TESTIMONIALS.length],
-  ];
+    TESTIMONIALS[cur % count],
+    TESTIMONIALS[(cur + 1) % count],
+    TESTIMONIALS[(cur + 2) % count],
+  ].filter(Boolean);
 
   return (
     <section id="testimonials" className={`section ${styles.wrap}`}>

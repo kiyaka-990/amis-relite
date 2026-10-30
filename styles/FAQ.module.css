@@ -13,7 +13,7 @@
 .sideCard {
   margin-top:36px;
   border-radius:var(--r-xl); overflow:hidden;
-  border:1px solid rgba(255,255,255,0.08);
+  border:1px solid var(--glass3);
 }
 .sideImg img { width:100%; height:200px; object-fit:cover; filter:brightness(0.65) grayscale(15%); display:block; }
 .sideBody {
@@ -28,13 +28,13 @@
 
 .item {
   background:var(--glass);
-  border:1px solid rgba(255,255,255,0.08);
+  border:1px solid var(--glass3);
   backdrop-filter:blur(20px);
   border-radius:var(--r-lg);
   overflow:hidden;
   transition:border-color 0.3s, box-shadow 0.3s;
 }
-.item:hover { border-color:rgba(255,255,255,0.12); }
+.item:hover { border-color:var(--glass3); }
 .itemOpen {
   border-color:var(--red-border);
   box-shadow:0 8px 32px rgba(192,57,43,0.10);
@@ -51,7 +51,7 @@
 .itemOpen .qText { color:var(--red2); }
 .qIcon {
   width:28px; height:28px; border-radius:50%;
-  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10);
+  background:var(--glass); border:1px solid var(--glass3);
   display:flex; align-items:center; justify-content:center;
   color:var(--red2); font-size:18px; flex-shrink:0; transition:all 0.35s;
 }

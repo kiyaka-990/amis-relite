@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { STATS } from '../data/content';
+import { useContent } from './ContentProvider';
 import styles from '../styles/StatsBar.module.css';
 
 export default function StatsBar() {
+  const { content } = useContent();
+  const STATS = content.stats;
   const [vis, setVis] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {

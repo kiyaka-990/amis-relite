@@ -20,8 +20,8 @@
   animation: scaleIn 0.8s ease both;
 }
 
-.tag { display:inline-flex;align-items:center;gap:10px;color:var(--red2);font-size:11px;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;margin-bottom:22px; }
-.tag::before { content:'';display:block;width:36px;height:1.5px;background:var(--red2);border-radius:var(--r-full); }
+.tag { display:inline-flex;align-items:center;gap:10px;color:var(--on-image-accent);font-size:11px;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;margin-bottom:22px; }
+.tag::before { content:'';display:block;width:36px;height:1.5px;background:var(--on-image-accent);border-radius:var(--r-full); }
 
 .title { font-family:var(--serif);font-size:clamp(38px,5.5vw,72px);font-weight:900;line-height:1.06;color:#fff;margin-bottom:20px; }
 .em { background:linear-gradient(90deg,var(--red2),var(--red4));background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-style:normal;display:block; }
@@ -38,18 +38,18 @@
 .btnP:hover { transform:translateY(-2px);box-shadow:0 12px 36px var(--red-glow); }
 .btnO {
   display:inline-flex;align-items:center;gap:10px;
-  background:rgba(255,255,255,0.08);color:var(--text);padding:13px 30px;
+  background:rgba(255,255,255,0.14);color:var(--on-image);padding:13px 30px;
   font-size:13px;font-weight:500;text-decoration:none;border-radius:var(--r-full);
   border:1px solid rgba(255,255,255,0.15);transition:all 0.25s;
   backdrop-filter:blur(12px);
 }
-.btnO:hover { border-color:var(--red-border);color:var(--red2);background:var(--glass-red); }
+.btnO:hover { border-color:rgba(255,255,255,0.5);color:var(--on-image);background:rgba(255,255,255,0.22); }
 
 /* Slide indicators */
 .indicators { position:absolute;bottom:40px;left:8%;z-index:3;display:flex;gap:16px; }
 .ind { display:flex;flex-direction:column;gap:6px;background:transparent;border:none;cursor:pointer;padding:0;opacity:0.45;transition:opacity 0.3s; }
 .indActive { opacity:1; }
-.indNum { font-size:11px;color:var(--text);font-weight:600;letter-spacing:1px; }
+.indNum { font-size:11px;color:var(--on-image);font-weight:600;letter-spacing:1px; }
 .indBar { width:48px;height:2px;background:rgba(255,255,255,0.2);border-radius:var(--r-full);overflow:hidden; }
 .indFill { height:100%;width:100%;background:var(--red2);border-radius:var(--r-full);animation:progressFill 7s linear forwards; }
 @keyframes progressFill { from{transform:scaleX(0);transform-origin:left} to{transform:scaleX(1);transform-origin:left} }
@@ -60,7 +60,7 @@
   width:44px;height:44px;
   background:rgba(255,255,255,0.07);
   border:1px solid rgba(255,255,255,0.12);
-  color:var(--text);font-size:22px;font-weight:300;
+  color:var(--on-image);font-size:22px;font-weight:300;
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;border-radius:var(--r-full);
   backdrop-filter:blur(16px);transition:all 0.2s;
@@ -68,7 +68,7 @@
 .arr:hover { background:var(--grad);border-color:var(--red);color:#fff;box-shadow:0 4px 20px var(--red-glow2); }
 
 /* Scroll cue */
-.scrollCue { position:absolute;bottom:42px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:9px;letter-spacing:2.5px;text-transform:uppercase; }
+.scrollCue { position:absolute;bottom:42px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--on-image-muted);font-size:9px;letter-spacing:2.5px;text-transform:uppercase; }
 .scrollMouse { width:20px;height:32px;border:1.5px solid rgba(255,255,255,0.2);border-radius:10px;display:flex;justify-content:center;padding-top:5px; }
 .scrollWheel { width:3px;height:6px;background:var(--red2);border-radius:var(--r-full);animation:scrollW 2s ease-in-out infinite; }
 @keyframes scrollW { 0%,100%{transform:translateY(0);opacity:1} 60%{transform:translateY(8px);opacity:0.2} }

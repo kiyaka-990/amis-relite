@@ -1,7 +1,12 @@
+import Link from 'next/link';
 import Image from 'next/image';
+import { useContent } from './ContentProvider';
 import styles from '../styles/CTABanner.module.css';
 
 export default function CTABanner() {
+  const { content } = useContent();
+  const site = content.site;
+  const wa = site.whatsapp.replace(/[^0-9]/g, '');
   return (
     <div className={styles.banner}>
       <div className={styles.bg}>
@@ -20,14 +25,14 @@ export default function CTABanner() {
             detailed, transparent quote with zero hidden costs.
           </p>
           <div className={styles.actions}>
-            <a href="#contact" className={styles.btnP}>Request Free Quote →</a>
-            <a href="tel:+254725590275" className={styles.btnO}>Call +254 725 590275</a>
+            <Link href="/contact" className={styles.btnP}>Request Free Quote →</Link>
+            <a href={`https://wa.me/${wa}?text=${encodeURIComponent(site.whatsappMsg)}`} target="_blank" rel="noopener noreferrer" className={styles.btnO}>WhatsApp Us</a>
           </div>
           <div className={styles.phones}>
             <span>Direct Line:</span>
-            <strong>+254 725 817475</strong>
+            <strong>{site.phone2}</strong>
             <span>|</span>
-            <strong>+254 725 590275</strong>
+            <strong>{site.phone1}</strong>
           </div>
         </div>
       </div>

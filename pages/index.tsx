@@ -1,39 +1,23 @@
-import Head from 'next/head';
-import Navbar       from '../components/Navbar';
-import Hero         from '../components/Hero';
-import StatsBar     from '../components/StatsBar';
-import About        from '../components/About';
-import Services     from '../components/Services';
-import Projects     from '../components/Projects';
+import Layout from '../components/Layout';
+import Hero from '../components/Hero';
+import StatsBar from '../components/StatsBar';
+import Services from '../components/Services';
+import Projects from '../components/Projects';
 import Testimonials from '../components/Testimonials';
-import Team         from '../components/Team';
-import FAQ          from '../components/FAQ';
-import CTABanner    from '../components/CTABanner';
-import Contact      from '../components/Contact';
-import Footer       from '../components/Footer';
-import Chatbot      from '../components/Chatbot';
+import CTABanner from '../components/CTABanner';
 
 export default function Home() {
   return (
-    <>
-      <Head>
-        <title>Amis Relite Limited — Quality Construction, Built to Last</title>
-      </Head>
-      {/* Mesh background */}
-      <div className="mesh-bg"/>
-      <Navbar/>
+    <Layout
+      title="Amis Relite Limited — Quality Construction, Built to Last"
+      description="Nairobi's premier construction company for commercial, residential and civil engineering projects across Kenya."
+    >
       <Hero/>
       <StatsBar/>
-      <About/>
-      <Services/>
-      <Projects/>
+      <Services limit={3} more={{ label: 'Explore all services', href: '/services' }}/>
+      <Projects limit={3} more={{ label: 'View all projects', href: '/projects' }}/>
       <Testimonials/>
-      <Team/>
-      <FAQ/>
       <CTABanner/>
-      <Contact/>
-      <Footer/>
-      <Chatbot/>
-    </>
+    </Layout>
   );
 }

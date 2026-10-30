@@ -6,7 +6,7 @@
 
 .card {
   background:var(--glass);
-  border:1px solid rgba(255,255,255,0.08);
+  border:1px solid var(--glass3);
   backdrop-filter:blur(24px) saturate(160%);
   -webkit-backdrop-filter:blur(24px) saturate(160%);
   border-radius:var(--r-xl);
@@ -14,7 +14,7 @@
   animation:cardIn 0.5s ease both;
   transition:border-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
-.card:hover { border-color:var(--red-border2); transform:translateY(-5px); box-shadow:0 20px 60px rgba(0,0,0,0.35),0 0 24px var(--red-glow2); }
+.card:hover { border-color:var(--red-border2); transform:translateY(-5px); box-shadow:var(--shadow-2),0 0 24px var(--red-glow2); }
 .featured {
   border-color:rgba(192,57,43,0.35);
   box-shadow:0 8px 40px rgba(192,57,43,0.12);
@@ -40,7 +40,7 @@
 .controls { display:flex; align-items:center; justify-content:center; gap:16px; }
 .arr {
   width:40px; height:40px; border-radius:50%;
-  background:var(--glass2); border:1px solid rgba(255,255,255,0.10);
+  background:var(--glass2); border:1px solid var(--glass3);
   color:var(--text); font-size:20px; cursor:pointer;
   display:flex; align-items:center; justify-content:center;
   transition:all 0.2s; backdrop-filter:blur(10px);
@@ -48,7 +48,7 @@
 .arr:hover { background:var(--grad); color:#fff; border-color:var(--red); box-shadow:0 4px 16px var(--red-glow2); }
 
 .dots { display:flex; gap:8px; }
-.dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.2); border:none; cursor:pointer; transition:all 0.3s; }
+.dot { width:8px; height:8px; border-radius:50%; background:var(--muted2); border:none; cursor:pointer; transition:all 0.3s; }
 .dotA { background:var(--red2); width:24px; border-radius:var(--r-full); }
 
 @media(max-width:900px)  { .track{grid-template-columns:repeat(2,1fr)} }

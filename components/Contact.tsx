@@ -1,15 +1,16 @@
 import { useState, FormEvent } from 'react';
-import { SITE } from '../data/content';
+import { useContent } from './ContentProvider';
 import styles from '../styles/Contact.module.css';
 
-const INFO = [
-  { icon:'📞', label:'Phone',        lines:[SITE.phone1, SITE.phone2] },
-  { icon:'✉️', label:'Email',        lines:[SITE.email1, SITE.email2] },
-  { icon:'🕐', label:'Office Hours', lines:[SITE.hours, 'Sat: By Appointment'] },
-  { icon:'📍', label:'Location',     lines:[SITE.addr, 'Serving all major counties'] },
-];
-
 export default function Contact() {
+  const { content } = useContent();
+  const site = content.site;
+  const INFO = [
+    { icon:'📞', label:'Phone',        lines:[site.phone1, site.phone2] },
+    { icon:'✉️', label:'Email',        lines:[site.email1, site.email2] },
+    { icon:'🕐', label:'Office Hours', lines:[site.hours, 'Sat: By Appointment'] },
+    { icon:'📍', label:'Location',     lines:[site.addr, 'Serving all major counties'] },
+  ];
   const [sent,    setSent]    = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -80,6 +81,14 @@ export default function Contact() {
             {sent ? '✓ Message Sent! We\'ll respond within 24 hours.' : loading ? 'Sending…' : 'Send Message & Request Quote →'}
           </button>
           <p className={styles.privacy}>🔒 Your information is secure and never shared.</p>
+          <a
+            className={styles.waBtn}
+            href={`https://wa.me/${site.whatsapp.replace(/[^0-9]/g,'')}?text=${encodeURIComponent(site.whatsappMsg)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            💬 Prefer WhatsApp? Chat with us now
+          </a>
         </form>
       </div>
     </section>

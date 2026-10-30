@@ -1,9 +1,19 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, type ReactNode } from 'react';
 import Image from 'next/image';
-import { HERO_SLIDES } from '../data/content';
+import Link from 'next/link';
+import { useContent } from './ContentProvider';
 import styles from '../styles/Hero.module.css';
 
+/** Internal links use the router, external ones (tel:, https:) stay plain anchors. */
+function Cta({ href, className, children }: { href: string; className: string; children: ReactNode }) {
+  return href.startsWith('/')
+    ? <Link href={href} className={className}>{children}</Link>
+    : <a href={href} className={className}>{children}</a>;
+}
+
 export default function Hero() {
+  const { content } = useContent();
+  const HERO_SLIDES = content.hero;
   const [cur, setCur] = useState(0);
   const [prev, setPrev] = useState(-1);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -59,8 +69,8 @@ export default function Hero() {
           <h1 className={styles.title}>{slide.title}<br/><em className={styles.em}>{slide.em}</em></h1>
           <p className={styles.desc}>{slide.desc}</p>
           <div className={styles.actions}>
-            <a href={slide.cta1.h} className={styles.btnP}>{slide.cta1.l} <span>→</span></a>
-            <a href={slide.cta2.h} className={styles.btnO}>{slide.cta2.l}</a>
+            <Cta href={slide.cta1.h} className={styles.btnP}>{slide.cta1.l} <span aria-hidden="true">→</span></Cta>
+            <Cta href={slide.cta2.h} className={styles.btnO}>{slide.cta2.l}</Cta>
           </div>
         </div>
       </div>

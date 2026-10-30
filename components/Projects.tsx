@@ -1,11 +1,13 @@
 import { useState, useRef, MouseEvent } from 'react';
 import Image from 'next/image';
-import { PROJECTS } from '../data/content';
+import Link from 'next/link';
+import { useContent } from './ContentProvider';
+import type { Project } from '../data/types';
 import styles from '../styles/Projects.module.css';
 
 const FILTERS = [{l:'All',v:'all'},{l:'Commercial',v:'Commercial'},{l:'Residential',v:'Residential'},{l:'Civil',v:'Civil'}];
 
-function TiltCard({ p, featured }: { p: typeof PROJECTS[0]; featured?: boolean }) {
+function TiltCard({ p, featured }: { p: Project; featured?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x:0, y:0, shine:0 });
   const [hov, setHov] = useState(false);
@@ -42,28 +44,38 @@ function TiltCard({ p, featured }: { p: typeof PROJECTS[0]; featured?: boolean }
         <div className={styles.meta}>
           <span>📍 {p.loc}</span><span>⏱ {p.dur}</span>
         </div>
-        <a href="#contact" className={styles.viewBtn}>View Details →</a>
+        <Link href="/contact" className={styles.viewBtn}>View Details →</Link>
       </div>
     </div>
   );
 }
 
-export default function Projects() {
+export default function Projects({ limit, more }: { limit?: number; more?: { label: string; href: string } }) {
+  const { content } = useContent();
+  const PROJECTS = content.projects;
   const [active, setActive] = useState('all');
-  const visible = active==='all' ? PROJECTS : PROJECTS.filter(p => p.cat===active);
+  const visible = (active === 'all' ? PROJECTS : PROJECTS.filter(p => p.cat === active)).slice(0, limit ?? 999);
   return (
     <section id="projects" className={`section section-alt2 ${styles.wrap}`}>
       <div className={styles.hdr}>
         <div><span className="section-tag">Our Portfolio</span><h2 className="section-title">Work That <em>Speaks for Itself</em></h2></div>
         <div className={styles.filters}>
-          {FILTERS.map(f => (
-            <button key={f.v} onClick={() => setActive(f.v)} className={`${styles.fb} ${active===f.v?styles.fbA:''}`}>{f.l}</button>
+          {!limit && FILTERS.map(f => (
+            <button key={f.v} onClick={() => setActive(f.v)} className={`${styles.fb} ${active===f.v?styles.fbA:''}`} aria-pressed={active===f.v}>{f.l}</button>
           ))}
         </div>
       </div>
       <div className={styles.grid}>
         {visible.map((p, i) => <TiltCard key={p.id} p={p} featured={i===0 && active==='all'} />)}
       </div>
+
+      {more && (
+        <div className={styles.more}>
+          <Link href={more.href} className="btn btn-outline">
+            {more.label} <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+      )}
     </section>
   );
 }

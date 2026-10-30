@@ -1,0 +1,62 @@
+.hero {
+  position: relative; overflow: hidden;
+  min-height: 46vh; padding: 150px 8% 74px;
+  display: flex; align-items: flex-end;
+}
+.bg {
+  position: absolute; inset: 0; background-size: cover; background-position: center;
+  transform: scale(1.03);
+}
+.veil {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(110deg, rgba(6, 8, 16, 0.94) 0%, rgba(6, 8, 16, 0.82) 45%, rgba(6, 8, 16, 0.55) 100%),
+    linear-gradient(to top, rgba(192, 57, 43, 0.28), transparent 55%);
+}
+.grid {
+  position: absolute; inset: 0; opacity: 0.28;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 70% 80% at 30% 50%, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 30% 50%, #000 30%, transparent 75%);
+}
+
+.inner { position: relative; z-index: 2; max-width: 1240px; width: 100%; margin: 0 auto; }
+
+.breadcrumb {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 7px 16px; border-radius: var(--r-full);
+  background: rgba(255, 255, 255, 0.10); border: 1px solid rgba(255, 255, 255, 0.20);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  font-size: 12px; letter-spacing: 0.6px; margin-bottom: 26px;
+  color: var(--on-image-muted);
+}
+.breadcrumb a { color: var(--on-image); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--on-image-accent); }
+.breadcrumb span[aria-current] { color: var(--on-image-accent); font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: 1.4px; }
+
+.title {
+  font-family: var(--serif); font-size: clamp(38px, 6vw, 72px);
+  font-weight: 900; line-height: 1.04; color: var(--on-image);
+  letter-spacing: -1px; margin-bottom: 18px;
+}
+.title em {
+  font-style: normal;
+  background: linear-gradient(90deg, var(--on-image-accent), var(--red));
+  background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.subtitle {
+  color: var(--on-image-muted); font-size: clamp(15px, 1.6vw, 18px);
+  line-height: 1.75; max-width: 640px; font-weight: 300;
+}
+
+.accent {
+  position: absolute; left: 0; bottom: 0; height: 4px; width: 100%;
+  background: linear-gradient(90deg, var(--red), var(--red4) 45%, transparent);
+}
+
+@media (max-width: 768px) {
+  .hero { min-height: 40vh; padding: 120px 5% 54px; }
+}

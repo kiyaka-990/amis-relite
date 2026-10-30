@@ -1,9 +1,12 @@
+import Link from 'next/link';
 import { useState } from 'react';
 import Image from 'next/image';
-import { TEAM } from '../data/content';
+import { useContent } from './ContentProvider';
 import styles from '../styles/Team.module.css';
 
 export default function Team() {
+  const { content } = useContent();
+  const TEAM = content.team;
   const [hov, setHov] = useState<number|null>(null);
   return (
     <section id="team" className={`section section-alt ${styles.wrap}`}>
@@ -23,7 +26,7 @@ export default function Team() {
               {/* Bio reveal */}
               <div className={`${styles.bioReveal} ${hov===i?styles.bioVisible:''}`}>
                 <p className={styles.bioText}>{m.bio}</p>
-                <a href="#contact" className={styles.bioBtn}>Get in Touch →</a>
+                <Link href="/contact" className={styles.bioBtn}>Get in Touch →</Link>
               </div>
             </div>
             {/* Info glass strip */}

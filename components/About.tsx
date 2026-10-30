@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Image from 'next/image';
 import styles from '../styles/About.module.css';
 
@@ -81,7 +82,7 @@ export default function About() {
             ))}
           </div>
 
-          <a href="#contact" className={styles.cta}>Work With Us →</a>
+          <Link href="/contact" className={styles.cta}>Work With Us →</Link>
         </div>
       </div>
     </section>

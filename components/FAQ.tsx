@@ -1,8 +1,11 @@
+import Link from 'next/link';
 import { useState } from 'react';
-import { FAQS } from '../data/content';
+import { useContent } from './ContentProvider';
 import styles from '../styles/FAQ.module.css';
 
 export default function FAQ() {
+  const { content } = useContent();
+  const FAQS = content.faqs;
   const [open, setOpen] = useState<number|null>(0);
   return (
     <section id="faq" className={`section section-alt2 ${styles.wrap}`}>
@@ -14,7 +17,7 @@ export default function FAQ() {
           <p className="section-desc" style={{marginBottom:'32px'}}>
             Can&apos;t find your answer? Our AI assistant ARIA is available 24/7, or reach us directly — we respond within 24 hours.
           </p>
-          <a href="#contact" className={styles.cta}>Contact Us Directly →</a>
+          <Link href="/contact" className={styles.cta}>Contact Us Directly →</Link>
 
           {/* Decorative card */}
           <div className={styles.sideCard}>

@@ -1,6 +1,6 @@
 .footer {
   background:var(--bg);
-  border-top:1px solid rgba(255,255,255,0.06);
+  border-top:1px solid var(--glass3);
   padding:72px 8% 32px;
 }
 .inner { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; margin-bottom:52px; }
@@ -13,6 +13,13 @@
 .contacts  { display:flex; flex-direction:column; gap:6px; }
 .contacts a { color:rgba(192,57,43,0.7); text-decoration:none; font-size:13px; transition:color 0.2s; }
 .contacts a:hover { color:var(--red2); }
+.social { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+.social a {
+  font-size:12px; font-weight:600; text-decoration:none; color:var(--text2);
+  padding:7px 14px; border:1px solid var(--glass3); border-radius:var(--r-full);
+  background:var(--glass); transition:all 0.22s;
+}
+.social a:hover { background:var(--grad); color:#fff; border-color:transparent; transform:translateY(-2px); }
 
 .colHd { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--red2); font-weight:700; margin-bottom:20px; }
 .list  { list-style:none; display:flex; flex-direction:column; gap:10px; }
@@ -21,7 +28,7 @@
 
 .bottom {
   display:flex; align-items:center; gap:14px;
-  border-top:1px solid rgba(255,255,255,0.05); padding-top:24px;
+  border-top:1px solid var(--glass3); padding-top:24px;
   color:var(--muted2); font-size:13px; flex-wrap:wrap;
 }
 .sep { color:var(--red-border); }
